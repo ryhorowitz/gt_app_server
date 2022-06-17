@@ -2,17 +2,20 @@ const express = require('express')
 const app = express()
 const port = 3000;
 const cors = require("cors");
-const pool = require(".dbConnect");
-const search = require('./routes/search');
+const pool = require("./dbConnect");
 
-app.use(cors());
-app.use(express.json());
-app.use('/search', search);
+// app.use(cors());
+app.use(express.json()); //adds req.body
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
+// // get all cases
+// app.get('/cases', (req, res) => {
+//   res.send('Hello World!')
+// })
+// // create a case file
+// app.post()
+// // update a case file
+// // update a case file status
+// // delete a case file
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
