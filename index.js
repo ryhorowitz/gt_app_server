@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 mongoose.connect(
-  `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPW}@gt-app.jur6dhu.mongodb.net?retryWrites=true&w=majority`,
+  `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPW}@cluster0.bjw6jfm.mongodb.net?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     // useFindAndModify: false,
@@ -24,7 +24,7 @@ mongoose.connect(
   }
 );
 
-// app.use(Router);
+app.use(caseFileRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
