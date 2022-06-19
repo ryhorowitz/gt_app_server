@@ -5,18 +5,21 @@ const CaseFileSchema = new Schema({
   caseNumber: {
     type: String,
     unique: true,
-    maxLength: 7
+    maxLength: 7,
+    required: true
   },
   lastName: {
     type: String, 
     uppercase: true,
-    trim: true 
+    trim: true,
+    required: true 
 
   },
   firstName: {
     type: String, 
     uppercase: true,
-    trim: true 
+    trim: true,
+    required: true 
   },
   status: {
     type: String,
