@@ -9,11 +9,12 @@ const port = 3000;
 
 // app.use(cors());
 app.use(express.json()); //adds req.body
-
-// // get all cases
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 
 mongoose.connect(
   `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPW}@cluster0.bjw6jfm.mongodb.net?retryWrites=true&w=majority`,
@@ -25,6 +26,7 @@ mongoose.connect(
 );
 
 app.use(caseFileRouter);
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
