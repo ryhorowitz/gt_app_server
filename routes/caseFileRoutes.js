@@ -14,11 +14,12 @@ app.get("/case-files", async (request, response) => {
 });
 //add new case file 
 app.post("/case-files", async (req, res) => {
+  console.log('post is', req.body);
   const caseFile = await new CaseFileModel(req.body);
 
   try {
     await caseFile.save();
-    res.send(caseFile)
+    res.status(200).send(caseFile)
   } catch (err) {
     res.status(500).send(err);
   }

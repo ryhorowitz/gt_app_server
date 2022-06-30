@@ -7,7 +7,6 @@ const app = express();
 
 const port = 3000;
 
-// app.use(cors());
 app.use(express.json()); //adds req.body
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
