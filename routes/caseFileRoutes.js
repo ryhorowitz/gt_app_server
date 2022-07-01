@@ -3,15 +3,26 @@ const CaseFileModel = require("../models/caseFiles");
 const app = express();
 
 //get all caseFiles
-app.get("/case-files", async (request, response) => {
+app.get("/case-files", async (req, res) => {
   const caseFiles = await CaseFileModel.find({});
 
   try {
-    response.send(caseFiles);
+    res.send(caseFiles);
   } catch (err) {
-    response.status(500).send(err);
+    res.status(500).send(err);
   }
 });
+
+app.get ("/serach", async (req, res) => {
+  console.log('req is:', req)
+  // find where caseNumber === req.body's data
+  const caseFile = await CaseFileModel.find({});
+
+  try {
+    res.send(caseFile);
+  } catch (err) {res.status(500).send(err)};
+
+})
 //add new case file 
 app.post("/case-files", async (req, res) => {
   console.log('post is', req.body);
