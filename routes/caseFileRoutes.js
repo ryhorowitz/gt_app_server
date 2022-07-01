@@ -24,6 +24,8 @@ app.post("/case-files", async (req, res) => {
     res.status(500).send(err);
   }
 })
+
+//SEARCH for a file by caseNumber/ or last name or firstname or status
 //update need to work on further but do delete first
 // app.patch("/case-files", async (req, res) => {
 //   try {
@@ -37,13 +39,14 @@ app.post("/case-files", async (req, res) => {
 
 app.delete("/case-files", async (req, res) => {
   try {
-    console.log('body is', req.body)
-    let data = req.body.string 
-    console.log('data is', typeof data)
-    const caseFile = await CaseFileModel.findOneAndDelete(req.params.id);
+    // console.log('body is', req.body)
+    let data = req.body.data 
+    console.log('data is', data)
+    const caseFile = await CaseFileModel.findOneAndDelete({caseNumber: data});
 
     if (!caseFile) { res.status(404).send("No item found") };
-    res.status(200).send();
+    console.log('case deleted: ',caseFile)
+    res.status(200).send(caseFile);
   } catch (error) {
     res.status(500).send(error);
   }
