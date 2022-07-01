@@ -37,12 +37,15 @@ app.post("/case-files", async (req, res) => {
 
 app.delete("/case-files", async (req, res) => {
   try {
+    console.log('body is', req.body)
+    let data = req.body.string 
+    console.log('data is', typeof data)
     const caseFile = await CaseFileModel.findOneAndDelete(req.params.id);
 
-    if (!caseFile) { response.status(404).send("No item found") };
-    response.status(200).send();
+    if (!caseFile) { res.status(404).send("No item found") };
+    res.status(200).send();
   } catch (error) {
-    response.status(500).send(error);
+    res.status(500).send(error);
   }
 });
 
