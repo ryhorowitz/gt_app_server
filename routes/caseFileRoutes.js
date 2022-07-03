@@ -39,15 +39,20 @@ app.post("/case-files", async (req, res) => {
 
 //SEARCH for a file by caseNumber/ or last name or firstname or status
 //update need to work on further but do delete first
-// app.patch("/case-files", async (req, res) => {
-//   try {
-//     await CaseFileModel.findOneAndUpdate(req.caseNumber, request.body);
-//     await CaseFileModel.save();
-//     response.send(caseFile);
-//   } catch (error) {
-//     response.status(500).send(error);
-//   }
-// });
+app.put("/case-files/update/:id", async (req, res) => {
+  console.log('id:', req.params.id);
+  console.log('req.body is', req.body);
+  const caseNumber = req.params.id;
+  const update = req.body;
+  try {
+    await CaseFileModel.findOneAndUpdate(caseNumber, update, {
+      new: true
+    });
+    res.send(caseFile);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 app.delete("/case-files", async (req, res) => {
   try {
