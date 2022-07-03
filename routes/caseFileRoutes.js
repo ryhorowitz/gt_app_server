@@ -37,18 +37,15 @@ app.post("/case-files", async (req, res) => {
   }
 })
 
-//SEARCH for a file by caseNumber/ or last name or firstname or status
-//update need to work on further but do delete first
 app.put("/case-files/update/:id", async (req, res) => {
-  console.log('id:', req.params.id);
-  console.log('req.body is', req.body);
   const caseNumber = req.params.id;
   const update = req.body;
   try {
-    await CaseFileModel.findOneAndUpdate(caseNumber, update, {
+    const result = await CaseFileModel.findOneAndUpdate(caseNumber, update, {
       new: true
     });
-    res.send(caseFile);
+    console.log('result', result)
+    res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);
   }
