@@ -13,11 +13,12 @@ app.get("/case-files", async (req, res) => {
   }
 });
 
-app.get ("/serach", async (req, res) => {
-  console.log('req is:', req)
-  // find where caseNumber === req.body's data
-  const caseFile = await CaseFileModel.find({});
-
+app.get ("/case-file/:id", async (req, res) => {
+  console.log('req case number is:', req.params.id)
+  const caseNumber = req.params.id;
+  // find where caseNumber === req.params's data
+  const caseFile = await CaseFileModel.find({ caseNumber });
+  console.log('caseFile:', caseFile);
   try {
     res.send(caseFile);
   } catch (err) {res.status(500).send(err)};
