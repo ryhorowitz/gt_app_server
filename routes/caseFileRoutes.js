@@ -2,7 +2,7 @@ const express = require("express");
 const CaseFileModel = require("../models/caseFiles");
 const app = express();
 
-//get all caseFiles
+//GET all caseFiles
 app.get("/case-files", async (req, res) => {
   const caseFiles = await CaseFileModel.find({});
 
@@ -12,7 +12,7 @@ app.get("/case-files", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+// GET single case by caseNumber
 app.get ("/case-file/:id", async (req, res) => {
   console.log('req case number is:', req.params.id)
   const caseNumber = req.params.id;
@@ -24,7 +24,7 @@ app.get ("/case-file/:id", async (req, res) => {
   } catch (err) {res.status(500).send(err)};
 
 })
-//add new case file 
+//ADD new case file 
 app.post("/case-files", async (req, res) => {
   console.log('post is', req.body);
   const caseFile = await new CaseFileModel(req.body);
@@ -36,7 +36,7 @@ app.post("/case-files", async (req, res) => {
     res.status(500).send(err);
   }
 })
-
+// UPDATE status of casefile
 app.put("/case-files/update/:id", async (req, res) => {
   const caseNumber = req.params.id;
   const update = req.body;
@@ -50,7 +50,7 @@ app.put("/case-files/update/:id", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
+// DELETE case file 
 app.delete("/case-files", async (req, res) => {
   try {
     // console.log('body is', req.body)

@@ -23,8 +23,13 @@ const CaseFileSchema = new Schema({
   },
   status: {
     type: String,
-    enum: [ 'active', 'inactive', 'closed'],
+    enum: [ 'active', 'inactive', 'closed' ],
     default: 'active'
+  },
+  year: {
+    type: Number,
+    min: 2012,
+    max: 2032
   }
 })
 
