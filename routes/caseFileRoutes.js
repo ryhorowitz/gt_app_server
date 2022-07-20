@@ -2,28 +2,41 @@ const express = require("express");
 const CaseFileModel = require("../models/caseFiles");
 const app = express();
 
-//GET all caseFiles
-app.get("/case-files", async (req, res) => {
-  const caseFiles = await CaseFileModel.find({});
-
-  try {
-    res.send(caseFiles);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
 // GET single case by caseNumber
 app.get ("/case-file/:id", async (req, res) => {
   console.log('req case number is:', req.params.id)
   const caseNumber = req.params.id;
-  // find where caseNumber === req.params's data
-  const caseFile = await CaseFileModel.find({ caseNumber });
-  console.log('caseFile:', caseFile);
+  const doc = await CaseFileModel.find({ caseNumber });
+  console.log('caseFile:', doc);
   try {
-    res.send(caseFile);
+    res.send(doc).status(200);
   } catch (err) {res.status(500).send(err)};
 
 })
+
+// GET cases by Last Name
+app.get ("/lastName/", async (req, res) => {
+  const lastName = req.query.lastName;
+  console.log('lastname is:', lastName)
+  // find where caseNumber === req.params's data
+  const docs = await CaseFileModel.find({ lastName: { $regex: `${lastName}` } });
+  // console.log('docs:', docs);
+  try {
+    res.send(docs);
+  } catch (err) {res.status(500).send(err)};  
+})
+
+//GET all caseFiles
+app.get("/case-files/all", async (req, res) => {
+  const docs = await CaseFileModel.find({});
+
+  try {
+    res.send(docs);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 //ADD new case file 
 app.post("/case-files", async (req, res) => {
   console.log('post is', req.body);
