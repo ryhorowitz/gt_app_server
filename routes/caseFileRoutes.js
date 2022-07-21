@@ -19,7 +19,7 @@ app.get ("/lastName/", async (req, res) => {
   const lastName = req.query.lastName;
   console.log('lastname is:', lastName)
   // find where caseNumber === req.params's data
-  const docs = await CaseFileModel.find({ lastName: { $regex: `${lastName}` } });
+  const docs = await CaseFileModel.find({ lastName: { $regex: lastName } });
   // console.log('docs:', docs);
   try {
     res.send(docs);
