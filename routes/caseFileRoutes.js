@@ -18,7 +18,6 @@ app.get ("/case-file/:id", async (req, res) => {
 app.get ("/lastName/", async (req, res) => {
   const lastName = req.query.lastName;
   console.log('lastname is:', lastName)
-  // find where caseNumber === req.params's data
   const docs = await CaseFileModel.find({ lastName: { $regex: lastName } });
   // console.log('docs:', docs);
   try {
@@ -26,7 +25,7 @@ app.get ("/lastName/", async (req, res) => {
   } catch (err) {res.status(500).send(err)};  
 })
 
-//GET all caseFiles
+//GET all caseFiles NOT HOOKED UP
 app.get("/case-files/all", async (req, res) => {
   const docs = await CaseFileModel.find({});
 
@@ -66,7 +65,6 @@ app.put("/case-files/update/:id", async (req, res) => {
 // DELETE case file 
 app.delete("/case-files", async (req, res) => {
   try {
-    // console.log('body is', req.body)
     let data = req.body.data 
     console.log('data is', data)
     const caseFile = await CaseFileModel.findOneAndDelete({caseNumber: data});
