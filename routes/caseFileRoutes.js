@@ -52,8 +52,11 @@ app.post("/case-files", async (req, res) => {
 app.put("/case-files/update/:id", async (req, res) => {
   const caseNumber = req.params.id;
   const update = req.body;
+  console.log('casenumber is', caseNumber)
+  console.log('update status is', update)
   try {
-    const result = await CaseFileModel.findOneAndUpdate(caseNumber, update, {
+    //error is here in mongoose query
+    const result = await CaseFileModel.findOneAndUpdate({ caseNumber }, update, {
       new: true
     });
     console.log('result', result)
