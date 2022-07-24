@@ -6,7 +6,7 @@ const app = express();
 app.get ("/case-file/:id", async (req, res) => {
   console.log('req case number is:', req.params.id)
   const caseNumber = req.params.id;
-  const doc = await CaseFileModel.find({ caseNumber });
+  const doc = await CaseFileModel.find({ caseNumber: { $regex: caseNumber, $options: 'i'  }});
   console.log('caseFile:', doc);
   try {
     res.send(doc).status(200);
@@ -15,14 +15,21 @@ app.get ("/case-file/:id", async (req, res) => {
 })
 
 // GET cases by Last Name
-app.get ("/lastName/", async (req, res) => {
-  const lastName = req.query.lastName;
+app.get ("/name-search/", async (req, res) => {
+  const firstName = req.query.firstname;
+  const lastName = req.query.lastname;
+  console.log('firstname is:', firstName)
   console.log('lastname is:', lastName)
-  const docs = await CaseFileModel.find({ lastName: { $regex: lastName } });
-  // console.log('docs:', docs);
+  //need to work on not worrying about letter casing. right now only works if cases match exactly.
+  const docs = await CaseFileModel.find({ 
+    firstName: { $regex: firstName, $options: 'i' },
+    lastName: { $regex: lastName, $options: 'i' }       
+  })
+  console.log('docs:', docs);
   try {
     res.send(docs);
   } catch (err) {res.status(500).send(err)};  
+  // res.status(200);
 })
 
 //GET all caseFiles NOT HOOKED UP
@@ -52,10 +59,9 @@ app.post("/case-files", async (req, res) => {
 app.put("/case-files/update/:id", async (req, res) => {
   const caseNumber = req.params.id;
   const update = req.body;
-  console.log('casenumber is', caseNumber)
-  console.log('update status is', update)
+  // console.log('casenumber is', caseNumber)
+  // console.log('update status is', update)
   try {
-    //error is here in mongoose query
     const result = await CaseFileModel.findOneAndUpdate({ caseNumber }, update, {
       new: true
     });
