@@ -5,7 +5,7 @@ const CaseFileSchema = new Schema({
   caseNumber: {
     type: String,
     unique: true,
-    maxLength: 6,
+    maxLength: 8,
     required: true
   },
   lastName: {
@@ -23,8 +23,8 @@ const CaseFileSchema = new Schema({
   },
   status: {
     type: String,
-    enum: [ 'active', 'inactive', 'closed' ],
-    default: 'active'
+    enum: [ 'open', 'closed' ],
+    default: 'open'
   },
   year: {
     type: Number,

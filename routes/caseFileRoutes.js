@@ -14,16 +14,15 @@ app.get ("/case-file/:id", async (req, res) => {
 
 })
 
-// GET cases by Last Name
+// GET cases by First or Last Name
 app.get ("/name-search/", async (req, res) => {
-  const firstName = req.query.firstname;
-  const lastName = req.query.lastname;
-  console.log('firstname is:', firstName)
-  console.log('lastname is:', lastName)
-  //need to work on not worrying about letter casing. right now only works if cases match exactly.
+  const firstname = req.query.firstname;
+  const lastname = req.query.lastname;
+  console.log('firstname is:', firstname)
+  console.log('lastname is:', lastname)
   const docs = await CaseFileModel.find({ 
-    firstName: { $regex: firstName, $options: 'i' },
-    lastName: { $regex: lastName, $options: 'i' }       
+    firstName: { $regex: firstname, $options: 'i' },
+    lastName: { $regex: lastname, $options: 'i' }       
   })
   console.log('docs:', docs);
   try {
@@ -59,8 +58,8 @@ app.post("/case-files", async (req, res) => {
 app.put("/case-files/update/:id", async (req, res) => {
   const caseNumber = req.params.id;
   const update = req.body;
-  // console.log('casenumber is', caseNumber)
-  // console.log('update status is', update)
+  console.log('casenumber is', caseNumber)
+  console.log('update status is', update)
   try {
     const result = await CaseFileModel.findOneAndUpdate({ caseNumber }, update, {
       new: true
