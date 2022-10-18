@@ -20,7 +20,7 @@ app.use(function(req, res, next) {
 });
 
 mongoose.connect(
-  `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPW}@cluster0.bjw6jfm.mongodb.net?retryWrites=true&w=majority`,
+  `mongodb+srv://${process.env.MONGOUSERNAME}:${process.env.MONGOPW}@cluster0.bjw6jfm.mongodb.net/GT?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     // useFindAndModify: false,
